@@ -53,12 +53,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E-Mail 입력 :"
+            android:text="이름 입력 :"
             android:textSize="20dp"
             android:paddingLeft="20dp"/>
 
         <EditText
-            android:id="@+id/inputEmail"
+            android:id="@+id/inputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
