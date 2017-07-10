@@ -13,10 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         button = (Button) findViewById(R.id.PressToGoTosignupMenu);
         button.setOnClickListener(
                 view -> {
-                    Intent intent = new Intent(getApplicationContext(), SignUpMenu.class);
+                    Intent intent = new Intent(getApplicationContext(), SignUpMenuActivity.class);
                     startActivity(intent);
                 }
         );
