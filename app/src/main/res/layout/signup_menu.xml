@@ -1,80 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:layout_marginBottom="100dp">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/PressToSignUp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:layout_marginTop="60dp">
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/holo_blue_light"
+        android:text="가입하기"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="38dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordToSignUp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디 입력 :"
-            android:textSize="20dp"
-            android:paddingLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="230dp"
+        android:layout_height="31dp"
+        android:background="@android:color/holo_blue_light"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="비밀번호(Password)"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/inputName"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/inputName"
+        android:layout_width="230dp"
+        android:layout_height="33dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="230dp"
+        android:layout_height="34dp"
+        android:background="@android:color/holo_blue_dark"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="이름(UserName)"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintTop_toBottomOf="@+id/IdToSignUp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+<TextView
+    android:id="@+id/textView"
+    android:layout_width="145dp"
+    android:layout_height="44dp"
+    android:layout_marginLeft="24dp"
+    android:layout_marginTop="16dp"
+    android:background="?attr/colorButtonNormal"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="5dp"
+    android:paddingVertical="10dp"
+    android:text="회원가입"
+    android:textAlignment="center"
+    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+    android:textColor="?attr/actionModeSplitBackground"
+    android:textSize="25sp"
+    android:textStyle="bold"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginStart="24dp"/>
+
+<TextView
+    android:id="@+id/textView3"
+    android:layout_width="145dp"
+    android:layout_height="44dp"
+    android:layout_marginRight="24dp"
+    android:layout_marginTop="16dp"
+    android:background="?attr/colorPrimary"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="5dp"
+    android:paddingVertical="10dp"
+    android:text="기기등록"
+    android:textAlignment="center"
+    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+    android:textColor="@android:color/background_light"
+    android:textSize="25sp"
+    android:textStyle="bold"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginEnd="24dp"/>
+
+    <EditText
+        android:id="@+id/PasswordToSignUp"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="230dp"
+        android:layout_height="34dp"
+        android:background="@android:color/holo_green_dark"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="아이디(ID)"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="142dp"/>
 
         <EditText
             android:id="@+id/IdToSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_width="230dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0.99">
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="333dp"
+        android:layout_height="21dp"
+        android:background="?android:attr/colorControlHighlight"
+        android:indeterminateTint="@android:color/darker_gray"
+        android:progress="50"
+        android:progressTint="@android:color/holo_red_dark"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="75dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="비밀번호 입력 :"
-            android:textSize="20dp"/>
-
-        <EditText
-            android:id="@+id/PasswordToSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1.13"
-        android:layout_marginBottom="80dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이름 입력 :"
-            android:textSize="20dp"
-            android:paddingLeft="20dp"/>
-
-        <EditText
-            android:id="@+id/inputName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/PressToSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="가입하기"
-            android:textSize="20dp"
-            android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

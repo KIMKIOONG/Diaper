@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="145dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorButtonNormal"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp"
+        android:paddingVertical="10dp"
+        android:text="설정관리"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?attr/actionModeSplitBackground"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="145dp"
+        android:layout_height="44dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimary"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp"
+        android:paddingVertical="10dp"
+        android:text="기록관리"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="333dp"
+        android:layout_height="21dp"
+        android:progress="100"
+        android:progressTint="?attr/actionModeSplitBackground"
+        tools:layout_editor_absoluteY="62dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="282dp"
+        android:layout_height="46dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_dark"
+        android:padding="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="주간 데이터"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="241dp"/>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="282dp"
+        android:layout_height="46dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_orange_light"
+        android:padding="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="일간 데이터"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="160dp"/>
+
+</android.support.constraint.ConstraintLayout>
