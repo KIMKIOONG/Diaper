@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by test2 on 2017-07-05.
  */
 
-public class SignUpMenu extends AppCompatActivity {
+public class SignUpMenuActivity extends AppCompatActivity {
     EditText editTextId;
     EditText editTextPw;
     EditText editTextName;
