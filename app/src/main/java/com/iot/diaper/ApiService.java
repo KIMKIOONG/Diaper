@@ -1,7 +1,5 @@
 package com.iot.diaper;
 
-import android.support.annotation.Nullable;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,8 +16,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("baby")
     Call<ResponseBody>postData(@Field("babyid") String id,
-                               @Nullable@Field("password") String pw,
-                               @Nullable@Field("Name") String name);
+                               @Field("password") String pw,
+                               @Field("Name") String name);
 
     @GET("/status/{babyid}")
     Call<ResponseBody>postDataForEventUpdate(@Path("babyid") String id);

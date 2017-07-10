@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -15,11 +17,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CallbackForResultFromStatus {
     private ExecutorService _executorService;
+    private String id;
 
     public CallbackForResultFromStatus() {
         _executorService = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors()
         );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     private CompletionHandler<String, Void> callback =
@@ -43,8 +54,22 @@ public class CallbackForResultFromStatus {
 
             Retrofit retrofit = builder.build();
             ApiService apiService = retrofit.create(ApiService.class);
-            Call<ResponseBody> call = apiService.postDataForEventUpdate();
+            while(true) {
+                Call<ResponseBody> call = apiService.postDataForEventUpdate(id);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }
         };
+        _executorService.submit(runnable);
     }
 
     public void finish() {
