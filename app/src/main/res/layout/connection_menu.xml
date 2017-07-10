@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="109dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Connection"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="330dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="145dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorButtonNormal"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp"
+        android:paddingVertical="10dp"
+        android:text="회원가입"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?attr/actionModeSplitBackground"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="145dp"
+        android:layout_height="44dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimary"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp"
+        android:paddingVertical="10dp"
+        android:text="기기등록"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="333dp"
+        android:layout_height="21dp"
+        android:progress="100"
+        android:progressTint="?attr/actionModeSplitBackground"
+        tools:layout_editor_absoluteY="62dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:hint="기기를 등록하세요."
+        android:inputType="textPersonName"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="228dp"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="64dp"
+        android:layout_height="44dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_orange_light"
+        android:padding="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="등록"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteY="227dp"
+        app:layout_constraintRight_toLeftOf="@+id/editText"
+        android:layout_marginRight="10dp"
+        />
+
+</android.support.constraint.ConstraintLayout>
