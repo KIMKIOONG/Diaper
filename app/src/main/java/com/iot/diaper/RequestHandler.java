@@ -37,7 +37,7 @@ public class RequestHandler extends Service {
 
             Notifi = new Notification.Builder(getApplicationContext())
                     .setContentTitle("기저귀를 갈아주세요!!")
-                    .setContentText("")//받은 json에서 시간을 넣어주세요.
+                    .setContentText("")//받은 json에서 시간을 넣어주세요...
                     .setTicker("알림!")
                     .setContentIntent(pendingIntent)
                     .build();
