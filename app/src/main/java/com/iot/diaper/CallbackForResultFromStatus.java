@@ -1,5 +1,7 @@
 package com.iot.diaper;
 
+import android.os.Handler;
+
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,32 +20,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CallbackForResultFromStatus {
     private ExecutorService _executorService;
     private String id;
+    private Handler _handler;
 
-    public CallbackForResultFromStatus() {
+    public CallbackForResultFromStatus(String id, Handler handler) {
         _executorService = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors()
         );
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
         this.id = id;
+        this._handler = handler;
     }
 
     private CompletionHandler<String, Void> callback =
             new CompletionHandler<String, Void>() {
                 @Override
                 public void completed(String result, Void aVoid) {
-
+                    _handler.sendMessage();
                 }
 
                 @Override
-                public void failed(Throwable throwable, Void aVoid) {
-
-                }
+                public void failed(Throwable throwable, Void aVoid) {}
             };
 
     public void getResult() {
@@ -59,13 +54,11 @@ public class CallbackForResultFromStatus {
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                        callback.completed(response.body().toString(), null);
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                    }
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {}
                 });
             }
         };
