@@ -1,6 +1,12 @@
 package com.iot.diaper;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.ExecutorService;
@@ -30,11 +36,27 @@ public class CallbackForResultFromStatus {
         this._handler = handler;
     }
 
-    private CompletionHandler<String, Void> callback =
-            new CompletionHandler<String, Void>() {
+    // CompletionHandler class 안드로이드 스튜디오 3.0버전으로 업데이트해서 진행해야됨.
+    private CompletionHandler<String, Void> callback = new CompletionHandler<String, Void>() {
+                // service가 동작하다가 response에 값이 있을때 실행되는 메소드
                 @Override
                 public void completed(String result, Void aVoid) {
-                    _handler.sendMessage();
+                    // json 파싱해서 알림을 띄워줌.
+                    try {
+                        JSONArray jsonArray = new JSONArray(result);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        String time = jsonObject.getString("wasteTime");
+                        // string -> message 로 바꿈
+                        Bundle timeBundle = new Bundle();
+                        timeBundle.putString("time", time);
+
+                        Message message_time = Message.obtain();
+                        message_time.setData(timeBundle);
+
+                        _handler.handleMessage(message_time);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -54,7 +76,9 @@ public class CallbackForResultFromStatus {
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        callback.completed(response.body().toString(), null);
+                        // reponse로 값이 있을때 completed 실행함.
+                        if(response.body().contentLength() > 0)
+                            callback.completed(response.body().toString(), null);
                     }
 
                     @Override
