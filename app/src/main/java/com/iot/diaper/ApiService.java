@@ -24,4 +24,7 @@ public interface ApiService {
 
     @GET("baby")
     Call<ResponseBody>getData();
+
+    @GET("/count/{babyid}")
+    Call<ResponseBody>getcoutData(@Path("babyid") String id);
 }
