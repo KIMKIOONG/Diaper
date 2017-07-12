@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +47,7 @@ public class GraphActivity extends AppCompatActivity
         userintent = new Intent(getApplicationContext(), RequestHandler.class);
         userintent.putExtra("userId", userId);
         userintent.putExtra("userName", userName);
+        userintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         txt_test = (TextView) findViewById(R.id.txt_test);
         txt_test.setText("result 출력");
@@ -54,7 +57,7 @@ public class GraphActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        txt_test.setText(getGraphData());
+                        getGraphData();
                     }
                 }
         );
@@ -123,9 +126,13 @@ public class GraphActivity extends AppCompatActivity
             startService(userintent);
 
         } else if (id == R.id.alertOff) {
-            Toast.makeText(getApplicationContext(), "알림 온", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
             stopService(userintent);
 
+            // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
+        } else if (id == R.id.switch_test) {
+            if()
+            Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -133,8 +140,7 @@ public class GraphActivity extends AppCompatActivity
         return true;
     }
 
-    public String getGraphData() {
-        final String[] graphData = new String[1];
+    public void getGraphData() {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("http://192.168.111.130:3005/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -145,7 +151,12 @@ public class GraphActivity extends AppCompatActivity
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                graphData[0] = response.body().toString();
+                try {
+                    String reponseData = response.body().string();
+                    txt_test.setText(reponseData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -153,7 +164,6 @@ public class GraphActivity extends AppCompatActivity
 
             }
         });
-
-        return graphData[0];
     }
+
 }
