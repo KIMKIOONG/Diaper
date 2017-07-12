@@ -3,9 +3,8 @@ package com.iot.diaper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,13 +12,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GraphActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // testid, name 넣어놓은것
     String userId = "111";
     String userName = "이원희";
+    private TextView txt_test;
+    private Button button_test;
+    private Intent userintent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +40,24 @@ public class GraphActivity extends AppCompatActivity
         setContentView(R.layout.activity_graph);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // useIntent 생성
+        userintent = new Intent(getApplicationContext(), RequestHandler.class);
+        userintent.putExtra("userId", userId);
+        userintent.putExtra("userName", userName);
+
+        txt_test = (TextView) findViewById(R.id.txt_test);
+        txt_test.setText("result 출력");
+
+        button_test = (Button) findViewById(R.id.test_button);
+        button_test.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        txt_test.setText(getGraphData());
+                    }
+                }
+        );
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(
@@ -89,11 +120,11 @@ public class GraphActivity extends AppCompatActivity
         if (id == R.id.alertOn) {
             // 알림이 켜졌을때
             Toast.makeText(getApplicationContext(), "알림 온", Toast.LENGTH_LONG).show();
-            startService(createUserIntent(userId,userName));
+            startService(userintent);
 
         } else if (id == R.id.alertOff) {
             Toast.makeText(getApplicationContext(), "알림 온", Toast.LENGTH_LONG).show();
-            stopService(createUserIntent(userId,userName));
+            stopService(userintent);
 
         }
 
@@ -102,11 +133,27 @@ public class GraphActivity extends AppCompatActivity
         return true;
     }
 
-    // 유저 인텐트 생성 메소드
-    public Intent createUserIntent(String id, String name) {
-        Intent intent = new Intent(getApplicationContext(), RequestHandler.class);
-        intent.putExtra("userId", userId);
-        intent.putExtra("userName", userName);
-        return intent;
+    public String getGraphData() {
+        final String[] graphData = new String[1];
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("http://192.168.111.130:3005/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<ResponseBody> call = apiService.getcoutData(userId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                graphData[0] = response.body().toString();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+        return graphData[0];
     }
 }
