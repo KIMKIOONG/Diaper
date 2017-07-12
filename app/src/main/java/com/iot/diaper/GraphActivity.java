@@ -1,5 +1,6 @@
 package com.iot.diaper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class GraphActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String userId = "111";
+    String userName = "이원희";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,8 @@ public class GraphActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -80,22 +86,27 @@ public class GraphActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.alertOn) {
+            // 알림이 켜졌을때
+            Toast.makeText(getApplicationContext(), "알림 온", Toast.LENGTH_LONG).show();
+            startService(createUserIntent(userId,userName));
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.alertOff) {
+            Toast.makeText(getApplicationContext(), "알림 온", Toast.LENGTH_LONG).show();
+            stopService(createUserIntent(userId,userName));
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // 유저 인텐트 생성 메소드
+    public Intent createUserIntent(String id, String name) {
+        Intent intent = new Intent(getApplicationContext(), RequestHandler.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("userName", userName);
+        return intent;
     }
 }
