@@ -27,15 +27,12 @@ public class RequestHandler extends Service {
         if(intent == null)
             return Service.START_STICKY;
         else {
-
             userId = intent.getStringExtra("userId");
             userName = intent.getStringExtra("userName");
             MyServiceHandler myServiceHandler = new MyServiceHandler();
             Notifi_M = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             _callbackForResultFromStatus = new CallbackForResultFromStatus(userId, myServiceHandler);//여기다가 intent로 받은 id값 넣어주세요, handler 넣어주세요.
             _callbackForResultFromStatus.getResult();
-
-
         }
         return super.onStartCommand(intent,flags,startId);
     }
@@ -45,7 +42,9 @@ public class RequestHandler extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            Intent intent = new Intent(RequestHandler.this, MainActivity.class);//상태창에서 갈 클래 적어야됨
+            Intent intent = new Intent(RequestHandler.this, GraphActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(RequestHandler.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             // message -> string 바꿈
             String time = msg.obj.toString();
