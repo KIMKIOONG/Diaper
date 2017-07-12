@@ -131,7 +131,7 @@ public class GraphActivity extends AppCompatActivity
 
             // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
         } else if (id == R.id.switch_test) {
-            if()
+//            if()
             Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
         }
 
