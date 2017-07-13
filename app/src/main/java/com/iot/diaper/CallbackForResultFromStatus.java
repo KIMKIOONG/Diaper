@@ -35,33 +35,6 @@ public class CallbackForResultFromStatus {
         this._handler = handler;
     }
 
-    // CompletionHandler class 안드로이드 스튜디오 3.0버전으로 업데이트해서 진행해야됨.
-//    private CompletionHandler<String, Void> callback = new CompletionHandler<String, Void>() {
-//                // service가 동작하다가 response에 값이 있을때 실행되는 메소드
-//                @Override
-//                public void completed(String result, Void aVoid) {
-//                    // json 파싱해서 알림을 띄워줌.
-//                    try {
-//                        JSONArray jsonArray = new JSONArray(result);
-//                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-//                        String time = jsonObject.getString("wasteTime");
-//                        // string -> message 로 바꿈
-//                        Bundle timeBundle = new Bundle();
-//                        timeBundle.putString("time", time);
-//
-//                        Message message_time = Message.obtain();
-//                        message_time.setData(timeBundle);
-//
-//                        _handler.handleMessage(message_time);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                @Override
-//                public void failed(Throwable throwable, Void aVoid) {}
-//            };
-
     public void getResult() {
         Runnable runnable = () -> {
             Retrofit.Builder builder = new Retrofit.Builder()
