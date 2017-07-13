@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.widget.Toast;
 
 public class RequestHandler extends Service {
     NotificationManager Notifi_M;
@@ -35,7 +34,6 @@ public class RequestHandler extends Service {
             Notifi_M = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             _callbackForResultFromStatus = new CallbackForResultFromStatus(userId, myServiceHandler);//여기다가 intent로 받은 id값 넣어주세요, handler 넣어주세요.
             _callbackForResultFromStatus.getResult();
-            Toast.makeText(getApplicationContext(), "service on", Toast.LENGTH_LONG).show();
 
 
         }
