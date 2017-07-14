@@ -2,7 +2,12 @@ package com.iot.diaper;
 
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -17,9 +22,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
     private ApiService _apiService;
+    private ArrayList<String> _arrayList;
 
     public RetrofitBuilder(ApiService apiService) {
         _apiService = apiService;
+    }
+
+    public RetrofitBuilder(ApiService apiService, ArrayList<String> arrayList) {
+        _apiService = apiService;
+        _arrayList = arrayList;
+    }
+
+    public ArrayList<String> getArrayList()
+    {
+        return _arrayList;
+    }
+
+    public void clearList() {
+        _arrayList.clear();
     }
 
     public void build() {
@@ -51,8 +71,8 @@ public class RetrofitBuilder {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String reponseData = response.body().string();
-                    txt_test.setText(reponseData);
+                    String responseData = response.body().string();
+                    txt_test.setText(responseData);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -65,14 +85,29 @@ public class RetrofitBuilder {
         });
     }
 
-    public void checkIdAndPw(String id, String pw) {
+    public void getIdAndPw(String id, String pw) {
+
         Call<ResponseBody> call = _apiService.checkDataToLogin(id, pw);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                JSONArray jsonArray = null;
+                try
+                {
+                    jsonArray = new JSONArray(response.body().string());
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String did = jsonObject.getString("babyId");
+                    String dname = jsonObject.getString("name");
+                    _arrayList.add(did);
+                    _arrayList.add(dname);
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
