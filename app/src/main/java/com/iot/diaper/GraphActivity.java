@@ -17,15 +17,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class GraphActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,6 +26,8 @@ public class GraphActivity extends AppCompatActivity
     private TextView txt_test;
     private Button button_test;
     private Intent userintent;
+    ApiService apiService;
+    RetrofitBuilder retrofitBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +35,9 @@ public class GraphActivity extends AppCompatActivity
         setContentView(R.layout.activity_graph);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        retrofitBuilder = new RetrofitBuilder(apiService);
+        retrofitBuilder.build();
 
         // useIntent 생성
         userintent = new Intent(getApplicationContext(), RequestHandler.class);
@@ -57,7 +53,7 @@ public class GraphActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        getGraphData();
+                        retrofitBuilder.getGraphData(userId, txt_test);
                     }
                 }
         );
@@ -139,31 +135,4 @@ public class GraphActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void getGraphData() {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://192.168.111.130:3005/")
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<ResponseBody> call = apiService.getcoutData(userId);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String reponseData = response.body().string();
-                    txt_test.setText(reponseData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
-
 }

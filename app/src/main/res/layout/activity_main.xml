@@ -13,7 +13,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="?android:attr/colorMultiSelectHighlight"
-    android:onClick="PressToSignIn"
     android:text="로그인"
     android:textColor="@android:color/background_light"
     android:textSize="20dp"
@@ -95,12 +94,9 @@
     android:id="@+id/inputId"
     android:layout_width="214dp"
     android:layout_height="40dp"
-    android:layout_marginRight="8dp"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-    app:layout_constraintLeft_toRightOf="@+id/textView2"
-    android:layout_marginLeft="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"/>
+    android:layout_marginEnd="8dp"
+    tools:layout_editor_absoluteY="187dp"
+    tools:layout_editor_absoluteX="150dp" />
 
 </android.support.constraint.ConstraintLayout>

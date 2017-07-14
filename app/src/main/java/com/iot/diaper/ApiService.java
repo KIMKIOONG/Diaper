@@ -19,6 +19,11 @@ public interface ApiService {
                                @Field("password") String pw,
                                @Field("Name") String name);
 
+    @FormUrlEncoded
+    @POST("/device")
+    Call<ResponseBody>postDataToDevice(@Field("babyid") String id,
+                                       @Field("deviceid") String deviceId);//연동번호 입력
+
     @GET("/status/{babyid}")
     Call<ResponseBody>postDataForEventUpdate(@Path("babyid") String id);
 
@@ -26,5 +31,9 @@ public interface ApiService {
     Call<ResponseBody>getData();
 
     @GET("/count/{babyid}")
-    Call<ResponseBody>getcoutData(@Path("babyid") String id);
+    Call<ResponseBody>getcountData(@Path("babyid") String id);
+
+    @GET("/baby/{babyid}&{password}")
+    Call<ResponseBody>checkDataToLogin(@Path("babyid") String id,
+                                       @Path("password") String pw);//로그인할때 확인하는거
 }
