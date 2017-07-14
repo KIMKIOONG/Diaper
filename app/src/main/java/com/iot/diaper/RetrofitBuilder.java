@@ -2,11 +2,11 @@ package com.iot.diaper;
 
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -22,25 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
     private ApiService _apiService;
-    private ArrayList<String> _arrayList;
 
     public RetrofitBuilder(ApiService apiService) {
         _apiService = apiService;
     }
 
-    public RetrofitBuilder(ApiService apiService, ArrayList<String> arrayList) {
-        _apiService = apiService;
-        _arrayList = arrayList;
-    }
-
-    public ArrayList<String> getArrayList()
-    {
-        return _arrayList;
-    }
-
-    public void clearList() {
-        _arrayList.clear();
-    }
 
     public void build() {
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -65,17 +51,39 @@ public class RetrofitBuilder {
         });
     }
 
-    public void getGraphData(String id, TextView txt_test) {
+    public void getGraphData(String id, TextView txt_test, BarChart barChart) {
+
+        ArrayList<Integer> arrayCount = new ArrayList<>();
+        for(int i=0; i<24; i++) {
+            arrayCount.add(0);
+        }
+
         Call<ResponseBody> call = _apiService.getcountData(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                String responseData = null;
                 try {
-                    String responseData = response.body().string();
-                    txt_test.setText(responseData);
-                } catch (IOException e) {
+                    responseData = response.body().string();
+                    JSONArray jsonArray = new JSONArray(responseData);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int time;
+                        int count;
+                        time = jsonObject.getInt("time");
+                        count = jsonObject.getInt("count");
+                        txt_test.setText("그래프");
+                        arrayCount.set(time, count);
+                    }
+
+                    BarGraph graphData = new BarGraph(arrayCount);
+                    graphData.createBarGraph(barChart);
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
 
             @Override
@@ -108,6 +116,7 @@ public class RetrofitBuilder {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 

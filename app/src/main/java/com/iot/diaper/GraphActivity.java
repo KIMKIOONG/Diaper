@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+
 public class GraphActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,6 +30,8 @@ public class GraphActivity extends AppCompatActivity
     private Intent userintent;
     ApiService apiService;
     RetrofitBuilder retrofitBuilder;
+    BarChart barChart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,11 @@ public class GraphActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // 차트 그리는 곳
+        barChart = (BarChart) findViewById(R.id.bargraph);
+
+
+        //
         retrofitBuilder = new RetrofitBuilder(apiService);
         retrofitBuilder.build();
 
@@ -53,7 +62,7 @@ public class GraphActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        retrofitBuilder.getGraphData(userId, txt_test);
+                        retrofitBuilder.getGraphData(userId, txt_test, barChart);
                     }
                 }
         );
@@ -125,14 +134,17 @@ public class GraphActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
             stopService(userintent);
 
-            // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
-        } else if (id == R.id.switch_test) {
-//            if()
-            Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
+
         }
+        // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
+//        else if (id == R.id.switch_test) {
+//            if()
+//            Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
