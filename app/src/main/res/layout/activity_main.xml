@@ -99,4 +99,20 @@
     tools:layout_editor_absoluteY="187dp"
     tools:layout_editor_absoluteX="150dp" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember login"
+        android:id="@+id/checkBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/PressToLogin"/>
+
+
+
+
 </android.support.constraint.ConstraintLayout>
