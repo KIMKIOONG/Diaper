@@ -5,8 +5,10 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
