@@ -32,7 +32,6 @@ public class GraphActivity extends AppCompatActivity
     RetrofitBuilder retrofitBuilder;
     BarChart barChart;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +42,6 @@ public class GraphActivity extends AppCompatActivity
         // 차트 그리는 곳
         barChart = (BarChart) findViewById(R.id.bargraph);
 
-
-        //
         retrofitBuilder = new RetrofitBuilder(apiService);
         retrofitBuilder.build();
 
@@ -66,6 +63,8 @@ public class GraphActivity extends AppCompatActivity
                     }
                 }
         );
+        // 그래프 그리기
+        retrofitBuilder.getGraphData(userId, txt_test, barChart);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(

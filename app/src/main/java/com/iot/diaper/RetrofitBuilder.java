@@ -1,14 +1,15 @@
 package com.iot.diaper;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -24,17 +25,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
     private ApiService _apiService;
-    private ArrayList<String> _arrayList;
+    private Activity activity;
 
     public RetrofitBuilder(ApiService apiService) {
         _apiService = apiService;
     }
 
-    public RetrofitBuilder(ApiService apiService, ArrayList<String> arrayList) {
+    public RetrofitBuilder(ApiService apiService, Activity activity) {
         _apiService = apiService;
-        _arrayList = arrayList;
+        this.activity = activity;
     }
-
 
     public void build() {
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -101,26 +101,29 @@ public class RetrofitBuilder {
         });
     }
 
-    public void getIdAndPw(String id, String pw) {
+    public void getUserData(String id, String pw) {
 
         Call<ResponseBody> call = _apiService.checkDataToLogin(id, pw);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                JSONArray jsonArray = null;
-                try
-                {
-                    jsonArray = new JSONArray(response.body().string());
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    String did = jsonObject.getString("babyId");
-                    String dname = jsonObject.getString("name");
-                    _arrayList.add(did);
-                    _arrayList.add(dname);
-                } catch (JSONException e)
-                {
-                    e.printStackTrace();
-                } catch (IOException e)
-                {
+                String responseData = null;
+                try {
+                    if(response.body() == null) {
+                        Toast.makeText(activity.getApplicationContext(),"no", Toast.LENGTH_LONG).show();
+                    }
+                    responseData = response.body().string();
+                    JSONArray jsonArray = new JSONArray(responseData);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        String id;
+                        String name;
+                        id = jsonObject.getString("babyId");
+                        name = jsonObject.getString("name");
+                    Intent intent = new Intent(activity, GraphActivity.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("name", name);
+                    activity.startActivity(intent);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

@@ -20,20 +20,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpMenuActivity" />
-
-        <service
-            android:name=".RequestHandler"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity android:name=".BluetoothActivity">
+        <activity android:name=".SignUpMenuActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".RequestHandler"
+            android:enabled="true"
+            android:exported="true" />
         <activity
             android:name=".GraphActivity"
             android:label="@string/title_activity_graph"
