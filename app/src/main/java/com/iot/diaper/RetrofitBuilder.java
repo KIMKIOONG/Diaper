@@ -24,9 +24,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
     private ApiService _apiService;
+    private ArrayList<String> _arrayList;
 
     public RetrofitBuilder(ApiService apiService) {
         _apiService = apiService;
+    }
+
+    public RetrofitBuilder(ApiService apiService, ArrayList<String> arrayList) {
+        _apiService = apiService;
+        _arrayList = arrayList;
     }
 
 
