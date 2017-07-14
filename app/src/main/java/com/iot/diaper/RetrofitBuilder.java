@@ -2,7 +2,12 @@ package com.iot.diaper;
 
 import android.widget.TextView;
 
-import java.io.IOException;
+import com.github.mikephil.charting.charts.BarChart;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -21,6 +26,7 @@ public class RetrofitBuilder {
     public RetrofitBuilder(ApiService apiService) {
         _apiService = apiService;
     }
+
 
     public void build() {
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -45,17 +51,39 @@ public class RetrofitBuilder {
         });
     }
 
-    public void getGraphData(String id, TextView txt_test) {
+    public void getGraphData(String id, TextView txt_test, BarChart barChart) {
+
+        ArrayList<Integer> arrayCount = new ArrayList<>();
+        for(int i=0; i<24; i++) {
+            arrayCount.add(0);
+        }
+
         Call<ResponseBody> call = _apiService.getcountData(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                String responseData = null;
                 try {
-                    String reponseData = response.body().string();
-                    txt_test.setText(reponseData);
-                } catch (IOException e) {
+                    responseData = response.body().string();
+                    JSONArray jsonArray = new JSONArray(responseData);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int time;
+                        int count;
+                        time = jsonObject.getInt("time");
+                        count = jsonObject.getInt("count");
+                        txt_test.setText("그래프");
+                        arrayCount.set(time, count);
+                    }
+
+                    BarGraph graphData = new BarGraph(arrayCount);
+                    graphData.createBarGraph(barChart);
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
 
             @Override
