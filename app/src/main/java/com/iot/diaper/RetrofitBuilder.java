@@ -2,14 +2,18 @@ package com.iot.diaper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -44,7 +48,7 @@ public class RetrofitBuilder {
         _apiService = retrofit.create(ApiService.class);
     }
 
-    public void executeSendMessage(String id, String password, String name) {
+    public void postSignUp(String id, String password, String name) {
         Call<ResponseBody> call = _apiService.postData(id, password, name);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -81,7 +85,7 @@ public class RetrofitBuilder {
                         int count;
                         time = jsonObject.getInt("time");
                         count = jsonObject.getInt("count");
-                        txt_test.setText("그래프");
+                        txt_test.setText(id+"그래프");
                         arrayCount.set(time, count);
                     }
 
@@ -133,5 +137,38 @@ public class RetrofitBuilder {
 
             }
         });
+    }
+
+    public void getUpdateEvent(String id, Handler handler) {
+
+            Call<ResponseBody> call = _apiService.postDataForEventUpdate(id);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    // reponse로 값이 있을때 completed 실행함.
+                    String result = null;
+                    try {
+                        result = response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = new JSONArray(result);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        String time = jsonObject.getString("wasteTime");
+                        // string -> message 로 바꿈
+                        Message message_time = Message.obtain();
+                        message_time.obj = time;
+                        handler.sendMessage(message_time);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {}
+            });
     }
 }

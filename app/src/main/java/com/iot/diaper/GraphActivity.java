@@ -23,8 +23,8 @@ public class GraphActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // testid, name 넣어놓은것
-    String userId = "111";
-    String userName = "이원희";
+    String userId;
+    String userName;
     private TextView txt_test;
     private Button button_test;
     private Intent userintent;
@@ -39,20 +39,24 @@ public class GraphActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("id");
+        userName = intent.getStringExtra("name");
+
         // 차트 그리는 곳
         barChart = (BarChart) findViewById(R.id.bargraph);
 
         retrofitBuilder = new RetrofitBuilder(apiService);
         retrofitBuilder.build();
 
-        // useIntent 생성
+        // useIntent 생성 (RequestHandler쪽으로 넘어갈꺼임)
         userintent = new Intent(getApplicationContext(), RequestHandler.class);
         userintent.putExtra("userId", userId);
         userintent.putExtra("userName", userName);
         userintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         txt_test = (TextView) findViewById(R.id.txt_test);
-        txt_test.setText("result 출력");
+        txt_test.setText(userName+"그래프");
 
         button_test = (Button) findViewById(R.id.test_button);
         button_test.setOnClickListener(
