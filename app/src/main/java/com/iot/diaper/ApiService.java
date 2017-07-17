@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -39,4 +40,7 @@ public interface ApiService {
 
     @GET("/baby/{babyid}")
     Call<ResponseBody>checkforDuplicatedId(@Path("babyid") String id);//중복 체크 확인용
+
+    @GET("auth")
+    Call<ResponseBody>getAuthLogin(@Header("Authorization") String authHeader); // 로그인 인증
 }

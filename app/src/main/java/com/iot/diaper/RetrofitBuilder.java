@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Base64;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -121,9 +122,13 @@ public class RetrofitBuilder {
         });
     }
 
-    public void getUserData(String id, String pw) {
+    public void getAuthLogin(String id, String pw) {
 
-        Call<ResponseBody> call = _apiService.checkDataToLogin(id, pw);
+        String base = id+":"+pw;
+
+        String authHeader = "Basic "+ Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
+
+        Call<ResponseBody> call = _apiService.getAuthLogin(authHeader);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -139,10 +144,11 @@ public class RetrofitBuilder {
                     String name;
                     id = jsonObject.getString("babyId");
                     name = jsonObject.getString("name");
-                    Intent intent = new Intent(activity, GraphActivity.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("name", name);
-                    activity.startActivity(intent);
+
+                    Intent userDataintent = new Intent(activity, GraphActivity.class);
+                    userDataintent.putExtra("id", id);
+                    userDataintent.putExtra("name", name);
+                    activity.startActivity(userDataintent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -6,8 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     CheckBox autoLogin;
     RetrofitBuilder retrofitBuilder;
     ApiService apiService;
-    ArrayList<String> list;
 
 
     @Override
@@ -25,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list = new ArrayList<>();
         retrofitBuilder = new RetrofitBuilder(apiService, this);
         retrofitBuilder.build();
         inputId = (EditText) findViewById(R.id.inputId);
@@ -43,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin = (Button) findViewById(R.id.PressToLogin);
         buttonLogin.setOnClickListener(
                 view -> {
+                    Toast.makeText(getApplicationContext(), "login button", Toast.LENGTH_LONG).show();
                     String id = inputId.getText().toString();
                     String pw = inputPw.getText().toString();
-                    retrofitBuilder.getUserData(id, pw);
+                    retrofitBuilder.getAuthLogin(id, pw);
                 }
 
         );
