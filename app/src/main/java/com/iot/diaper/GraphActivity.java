@@ -60,7 +60,7 @@ public class GraphActivity extends AppCompatActivity
         txt_test.setText(userName+" 그래프");
 
         // 그래프 그리기
-        retrofitBuilder.getGraphData(userId, txt_test, barChart);
+        retrofitBuilder.getGraphData(userId, userName, txt_test, barChart);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(

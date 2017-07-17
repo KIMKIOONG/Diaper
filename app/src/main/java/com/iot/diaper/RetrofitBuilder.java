@@ -80,7 +80,7 @@ public class RetrofitBuilder {
         });
     }
 
-    public void getGraphData(String id, TextView txt_test, BarChart barChart) {
+    public void getGraphData(String id, String userName, TextView txt_test, BarChart barChart) {
 
         ArrayList<Integer> arrayCount = new ArrayList<>();
         for(int i=0; i<24; i++) {
@@ -102,7 +102,7 @@ public class RetrofitBuilder {
                         int count;
                         time = jsonObject.getInt("time");
                         count = jsonObject.getInt("count");
-                        txt_test.setText(id+"그래프");
+                        txt_test.setText(userName+"그래프");
                         arrayCount.set(time, count);
                     }
 
