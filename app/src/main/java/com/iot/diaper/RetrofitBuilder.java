@@ -2,12 +2,8 @@ package com.iot.diaper;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -177,7 +173,7 @@ public class RetrofitBuilder {
             });
     }
 
-    public void signupMenuForId(String id) {
+    public void signupMenuForId(String id, String pw, String name) {
         Call<ResponseBody> call = _apiService.checkforDuplicatedId(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -188,20 +184,13 @@ public class RetrofitBuilder {
                 String responseData = null;
                 try {
                     responseData = response.body().string();
-                    JSONArray jsonArray = new JSONArray(responseData);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    JSONObject jsonObject = new JSONObject(responseData);
                     String num = jsonObject.getString("count");
-                    LayoutInflater inflater = activity.getLayoutInflater();
-                    ViewGroup view = (ViewGroup) inflater.inflate(R.layout.signup_menu, null);
-                    EditText editTextId = (EditText) view.findViewById(R.id.IdToSignUp);
-                    EditText editTextPw = (EditText) view.findViewById(R.id.PasswordToSignUp);
-                    EditText editTextName = (EditText) view.findViewById(R.id.inputName);
                     if(num.equals("0")) {
-                        postSignUp(editTextId.getText().toString(), editTextPw.getText().toString(), editTextName.getText().toString());
+                        postSignUp(id, pw, name);
                         Intent intent = new Intent(activity, MainActivity.class);
                         activity.startActivity(intent);
                     } else {
-                        editTextId.setTextColor(Color.RED);
                         Toast.makeText(activity.getApplicationContext(), "Id Duplicated", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
