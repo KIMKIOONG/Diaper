@@ -146,7 +146,6 @@ public class RetrofitBuilder {
                     name = jsonObject.getString("name");
 
                     Intent userDataintent = new Intent(activity, GraphActivity.class);
-                    userDataintent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     userDataintent.putExtra("id", id);
                     userDataintent.putExtra("name", name);
                     activity.startActivity(userDataintent);
