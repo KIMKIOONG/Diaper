@@ -1,7 +1,9 @@
 package com.iot.diaper;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -35,6 +37,8 @@ public class GraphActivity extends AppCompatActivity
     RetrofitBuilder retrofitBuilder;
     BarChart barChart;
     final int REQUEST_ACT = 111;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -146,6 +150,14 @@ public class GraphActivity extends AppCompatActivity
             Intent intentToConnection = new Intent(getApplicationContext(), ConnectionMenuActivity.class);
             intentToConnection.putExtra("userId", userId);
             startActivityForResult(intentToConnection, REQUEST_ACT);
+        } else if (id == R.id.log_out) {
+            pref = getSharedPreferences("setting", Activity.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.clear();
+            editor.putBoolean("Auto_Login_Enabled", false);
+            editor.commit();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
 //        else if (id == R.id.switch_test) {
