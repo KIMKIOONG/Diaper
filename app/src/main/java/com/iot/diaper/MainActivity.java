@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
                 view -> {
                         String id = inputId.getText().toString();
                         String pw = inputPw.getText().toString();
-                        retrofitBuilder.getUserUpdate(id, pw);
+                        retrofitBuilder.getAuthLogin(id, pw);
                 }
         );
 
         if(setting.getBoolean("Auto_Login_enabled", false)) {
             inputId.setText(setting.getString("id", ""));
             inputPw.setText(setting.getString("pw", ""));
-            retrofitBuilder.getUserData(setting.getString("id", ""), setting.getString("pw", ""));
+            retrofitBuilder.getAuthLogin(setting.getString("id", ""), setting.getString("pw", ""));
             autoLogin.setChecked(true);
         }
 
