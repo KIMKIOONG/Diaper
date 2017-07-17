@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button button1;
-    Button button2;
+    Button buttonSignUp;
+    Button buttonLogin;
     EditText inputId, inputPw;
     CheckBox autoLogin;
     RetrofitBuilder retrofitBuilder;
@@ -32,16 +32,16 @@ public class MainActivity extends AppCompatActivity {
         inputPw = (EditText) findViewById(R.id.inputPw);
         autoLogin = (CheckBox) findViewById(R.id.checkBox);
 
-        button1 = (Button) findViewById(R.id.PressToGoTosignupMenu);
-        button1.setOnClickListener(
+        buttonSignUp = (Button) findViewById(R.id.PressToGoTosignupMenu);
+        buttonSignUp.setOnClickListener(
                 view -> {
                     Intent intent = new Intent(getApplicationContext(), SignUpMenuActivity.class);
                     startActivity(intent);
                 }
         );
 
-        button2 = (Button) findViewById(R.id.PressToLogin);
-        button2.setOnClickListener(
+        buttonLogin = (Button) findViewById(R.id.PressToLogin);
+        buttonLogin.setOnClickListener(
                 view -> {
                     String id = inputId.getText().toString();
                     String pw = inputPw.getText().toString();

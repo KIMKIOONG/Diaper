@@ -18,7 +18,7 @@ public class InputInterWorkingNumber extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connection_menu);
 
-        arduinoId = (EditText) findViewById(R.id.editText);
+        arduinoId = (EditText) findViewById(R.id.editTextConnection);
         connectionToAndroid = (Button) findViewById(R.id.button);
         connectionToAndroid.setOnClickListener(
                 view -> {

@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -150,22 +149,25 @@ public class RetrofitBuilder {
                     String result = null;
                     try {
                         result = response.body().string();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    JSONArray jsonArray = null;
-                    try {
-                        jsonArray = new JSONArray(result);
-                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        String time = jsonObject.getString("wasteTime");
-                        // string -> message 로 바꿈
-                        Message message_time = Message.obtain();
-                        message_time.obj = time;
-                        handler.sendMessage(message_time);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if(result != null) {
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(result);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String time = jsonObject.getString("wasteTime");
+                            // string -> message 로 바꿈
+                            Message message_time = Message.obtain();
+                            message_time.obj = time;
+                            handler.sendMessage(message_time);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 }
 
                 @Override

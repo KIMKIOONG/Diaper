@@ -11,11 +11,16 @@
             android:id="@+id/alertOff"
             android:icon="@drawable/ic_menu_gallery"
             android:title="알림 off"/>
+        <!--<item-->
+            <!--android:id="@+id/switch_test"-->
+            <!--android:icon="@drawable/ic_menu_send"-->
+            <!--android:title="알림 switch"-->
+            <!--app:actionLayout="@layout/switch_item"/>-->
+
         <item
-            android:id="@+id/switch_test"
-            android:icon="@drawable/ic_menu_send"
-            android:title="알림 switch"
-            app:actionLayout="@layout/switch_item"/>
+            android:id="@+id/deviceConnect"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="기기 등록"/>
 
 
     </group>
