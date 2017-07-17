@@ -8,7 +8,6 @@ import android.widget.EditText;
 /**
  * Created by test2 on 2017-07-05.
  */
-
 public class SignUpMenuActivity extends AppCompatActivity {
     EditText editTextId;
     EditText editTextPw;
@@ -21,8 +20,7 @@ public class SignUpMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_menu);
-
-        retrofitBuilder = new RetrofitBuilder(apiService);
+        retrofitBuilder = new RetrofitBuilder(apiService, this);
         editTextId = (EditText) findViewById(R.id.IdToSignUp);
         editTextPw = (EditText) findViewById(R.id.PasswordToSignUp);
         editTextName = (EditText) findViewById(R.id.inputName);
@@ -32,8 +30,9 @@ public class SignUpMenuActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(
                 v -> {
-                    retrofitBuilder.postSignUp(editTextId.getText().toString(), editTextPw.getText().toString(),
-                            editTextName.getText().toString());
+                    retrofitBuilder.signupMenuForId(editTextId.getText().toString());
+//                    retrofitBuilder.postSignUp(editTextId.getText().toString(), editTextPw.getText().toString(),
+//                            editTextName.getText().toString());
                 }
         );
     }

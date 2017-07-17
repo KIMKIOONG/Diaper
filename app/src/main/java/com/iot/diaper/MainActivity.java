@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.PressToGoTosignupMenu);
         button1.setOnClickListener(
                 view -> {
-
+                    Intent intent = new Intent(getApplicationContext(), SignUpMenuActivity.class);
+                    startActivity(intent);
                 }
         );
 
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 view -> {
                     String id = inputId.getText().toString();
                     String pw = inputPw.getText().toString();
-                    Intent intent = new Intent(getApplicationContext(), GraphActivity.class);
                     retrofitBuilder.getUserData(id, pw);
                 }
 

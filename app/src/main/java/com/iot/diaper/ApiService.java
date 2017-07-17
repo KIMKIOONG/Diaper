@@ -36,4 +36,7 @@ public interface ApiService {
     @GET("/baby/{babyid}&{password}")
     Call<ResponseBody>checkDataToLogin(@Path("babyid") String id,
                                        @Path("password") String pw);//로그인할때 확인하는거
+
+    @GET("/baby/{babyid}")
+    Call<ResponseBody>checkforDuplicatedId(@Path("babyid") String id);//중복 체크 확인용
 }
