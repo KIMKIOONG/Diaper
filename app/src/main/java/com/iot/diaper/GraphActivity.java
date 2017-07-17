@@ -31,6 +31,7 @@ public class GraphActivity extends AppCompatActivity
     ApiService apiService;
     RetrofitBuilder retrofitBuilder;
     BarChart barChart;
+    final int REQUEST_ACT = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +57,8 @@ public class GraphActivity extends AppCompatActivity
         userintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         txt_test = (TextView) findViewById(R.id.txt_test);
-        txt_test.setText(userName+"그래프");
+        txt_test.setText(userName+" 그래프");
 
-        button_test = (Button) findViewById(R.id.test_button);
-        button_test.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        retrofitBuilder.getGraphData(userId, txt_test, barChart);
-                    }
-                }
-        );
         // 그래프 그리기
         retrofitBuilder.getGraphData(userId, txt_test, barChart);
 
@@ -136,8 +128,12 @@ public class GraphActivity extends AppCompatActivity
         } else if (id == R.id.alertOff) {
             Toast.makeText(getApplicationContext(), "알림 오프", Toast.LENGTH_LONG).show();
             stopService(userintent);
-
-
+        }
+        else if (id == R.id.deviceConnect) {
+            Toast.makeText(getApplicationContext(), "기기등록 화면", Toast.LENGTH_LONG).show();
+            Intent intentToConnection = new Intent(getApplicationContext(), ConnectionMenuActivity.class);
+            intentToConnection.putExtra("userId", userId);
+            startActivityForResult(intentToConnection, REQUEST_ACT);
         }
         // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
 //        else if (id == R.id.switch_test) {

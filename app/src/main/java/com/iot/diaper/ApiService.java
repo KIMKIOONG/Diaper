@@ -15,13 +15,13 @@ import retrofit2.http.Path;
 public interface ApiService {
     @FormUrlEncoded
     @POST("baby")
-    Call<ResponseBody>postData(@Field("babyid") String id,
+    Call<ResponseBody>postBabyData(@Field("babyid") String id,
                                @Field("password") String pw,
                                @Field("Name") String name);
 
     @FormUrlEncoded
     @POST("/device")
-    Call<ResponseBody>postDataToDevice(@Field("babyid") String id,
+    Call<ResponseBody>postDeviceData(@Field("babyid") String id,
                                        @Field("deviceid") String deviceId);//연동번호 입력
 
     @GET("/status/{babyid}")
@@ -34,7 +34,7 @@ public interface ApiService {
     Call<ResponseBody>getcountData(@Path("babyid") String id);
 
     @GET("/baby/{babyid}&{password}")
-    Call<Result>checkDataToLogin(@Path("babyid") String id,
+    Call<ResponseBody>checkDataToLogin(@Path("babyid") String id,
                                        @Path("password") String pw);//로그인할때 확인하는거
 
     @GET("/baby/{babyid}")

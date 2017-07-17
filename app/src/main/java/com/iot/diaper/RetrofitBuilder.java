@@ -33,7 +33,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitBuilder {
     private ApiService _apiService;
     private Activity activity;
-    private Handler _handler;
 
     public RetrofitBuilder(ApiService apiService) {
         _apiService = apiService;
@@ -52,8 +51,25 @@ public class RetrofitBuilder {
         _apiService = retrofit.create(ApiService.class);
     }
 
+    // 아기 가입 메소드
     public void postSignUp(String id, String password, String name) {
-        Call<ResponseBody> call = _apiService.postData(id, password, name);
+        Call<ResponseBody> call = _apiService.postBabyData(id, password, name);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    // 기기 등록 메소드
+    public void postAddDevice(String id, String deviceNum) {
+        Call<ResponseBody> call = _apiService.postDeviceData(id, deviceNum);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
