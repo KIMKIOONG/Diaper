@@ -32,8 +32,6 @@ public class SignUpMenuActivity extends AppCompatActivity {
                 v -> {
                     retrofitBuilder.signupMenuForId(editTextId.getText().toString(), editTextPw.getText().toString(),
                             editTextName.getText().toString());
-//                    retrofitBuilder.postSignUp(editTextId.getText().toString(), editTextPw.getText().toString(),
-//                            editTextName.getText().toString());
                 }
         );
     }
