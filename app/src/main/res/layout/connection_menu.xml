@@ -7,22 +7,22 @@
               android:orientation="vertical">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonConnection"
         android:layout_width="109dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="70dp"
         android:background="@android:color/holo_blue_dark"
         android:text="Connection"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="70dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintHorizontal_bias="0.44"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/editTextConnection"/>
 
     <TextView
         android:id="@+id/textView"
@@ -76,7 +76,7 @@
         android:layout_marginTop="60dp"/>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextConnection"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:ems="10"

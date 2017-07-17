@@ -34,7 +34,7 @@ public interface ApiService {
     Call<ResponseBody>getcountData(@Path("babyid") String id);
 
     @GET("/baby/{babyid}&{password}")
-    Call<ResponseBody>checkDataToLogin(@Path("babyid") String id,
+    Call<Result>checkDataToLogin(@Path("babyid") String id,
                                        @Path("password") String pw);//로그인할때 확인하는거
 
     @GET("/baby/{babyid}")
