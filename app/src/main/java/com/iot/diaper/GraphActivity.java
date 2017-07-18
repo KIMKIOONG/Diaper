@@ -183,6 +183,13 @@ public class GraphActivity extends AppCompatActivity
             }
         });
 
+        builder.setNeutralButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
