@@ -50,6 +50,12 @@ public class GraphActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        retrofitBuilder.getGraphData(userId, userName, txt_test, barChart);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
@@ -75,8 +81,9 @@ public class GraphActivity extends AppCompatActivity
         txt_test = (TextView) findViewById(R.id.txt_test);
         txt_test.setText(userName+" 그래프");
 
+
         // 그래프 그리기
-        retrofitBuilder.getGraphData(userId, userName, txt_test, barChart);
+//        retrofitBuilder.getGraphData(userId, userName, txt_test, barChart);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(
@@ -157,7 +164,10 @@ public class GraphActivity extends AppCompatActivity
             editor.putBoolean("Auto_Login_Enabled", false);
             editor.commit();
             Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+        } else if(id == R.id.finish_app) {
+            finishAffinity();
         }
         // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
 //        else if (id == R.id.switch_test) {

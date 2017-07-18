@@ -4,6 +4,11 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/deviceConnect"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="기기 등록"/>
+
+        <item
             android:id="@+id/alertOn"
             android:icon="@drawable/ic_menu_camera"
             android:title="알림 on"/>
@@ -18,18 +23,13 @@
             <!--app:actionLayout="@layout/switch_item"/>-->
 
         <item
-            android:id="@+id/deviceConnect"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="기기 등록"/>
-
-        <item
             android:id="@+id/log_out"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_share"
             android:title="로그 아웃"/>
 
         <item
             android:id="@+id/finish_app"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="종료"/>
 
 
