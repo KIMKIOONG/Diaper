@@ -18,11 +18,12 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+
+import java.util.Date;
 
 public class GraphActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,7 +32,6 @@ public class GraphActivity extends AppCompatActivity
     String userId;
     String userName;
     private TextView txt_test;
-    private Button button_test;
     private Intent userintent;
     ApiService apiService;
     RetrofitBuilder retrofitBuilder;
@@ -39,6 +39,11 @@ public class GraphActivity extends AppCompatActivity
     final int REQUEST_ACT = 111;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    private Date startDate;
+    private Date endDate;
+    private TextView txt_startDate;
+    private TextView txt_endDate;
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -52,7 +57,9 @@ public class GraphActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        retrofitBuilder.getGraphData(userId, userName, txt_test, barChart);
+        retrofitBuilder.getDailyGraphData(startDate, endDate, userId, userName, txt_test, barChart);
+        txt_startDate.setText(startDate.getYear()+"/"+startDate.getMonth()+"/"+startDate.getDate());
+        txt_endDate.setText(endDate.getYear()+"/"+endDate.getMonth()+"/"+endDate.getDate());
     }
 
     @Override
@@ -62,6 +69,9 @@ public class GraphActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        startDate = new Date(2017, 1, 1);
+        endDate = new Date(2017, 11, 31);
+
         Intent intent = getIntent();
         userId = intent.getStringExtra("id");
         userName = intent.getStringExtra("name");
@@ -69,6 +79,7 @@ public class GraphActivity extends AppCompatActivity
         // 차트 그리는 곳
         barChart = (BarChart) findViewById(R.id.bargraph);
 
+        // 레트로핏 빌더
         retrofitBuilder = new RetrofitBuilder(apiService);
         retrofitBuilder.build();
 
@@ -81,9 +92,11 @@ public class GraphActivity extends AppCompatActivity
         txt_test = (TextView) findViewById(R.id.txt_test);
         txt_test.setText(userName+" 그래프");
 
-
-        // 그래프 그리기
-//        retrofitBuilder.getGraphData(userId, userName, txt_test, barChart);
+        // 날짜 출력
+        txt_startDate = (TextView) findViewById(R.id.textStartDate);
+        txt_endDate = (TextView) findViewById(R.id.textEndDate);
+        txt_startDate.setText(""+startDate);
+        txt_endDate.setText(""+endDate);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(
@@ -168,6 +181,10 @@ public class GraphActivity extends AppCompatActivity
             startActivity(intent);
         } else if(id == R.id.finish_app) {
             finishAffinity();
+        } else if (id == R.id.countTerm) {
+            Toast.makeText(getApplicationContext(), "통계 기간설정 화면", Toast.LENGTH_LONG).show();
+            Intent intentToTerm = new Intent(getApplicationContext(), TermActivity.class);
+            startActivityForResult(intentToTerm, REQUEST_ACT);
         }
         // switch 어떻게 코드 작성하냐? http://blog.naver.com/PostView.nhn?blogId=cosmosjs&logNo=220728864491
 //        else if (id == R.id.switch_test) {
@@ -178,6 +195,35 @@ public class GraphActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // 기간을 받아왔을때 메소드
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(GraphActivity.this, "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (requestCode == REQUEST_ACT) {
+            // 기간 받아온 것들 처리.
+            int startYear = data.getIntExtra("startyear",0);
+            int startMonth = data.getIntExtra("startmonth",0);
+            int startDay = data.getIntExtra("startday",0);
+
+            int endYear = data.getIntExtra("endyear",0);
+            int endMonth = data.getIntExtra("endmonth",0);
+            int endDay = data.getIntExtra("endday",0);
+
+            startDate = new Date(startYear, startMonth, startDay);
+            endDate = new Date(endYear, endMonth, endDay);
+
+        } else {
+            Toast.makeText(GraphActivity.this, "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void showMessage() {

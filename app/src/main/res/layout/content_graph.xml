@@ -8,6 +8,15 @@
     tools:context="com.iot.diaper.GraphActivity"
     tools:showIn="@layout/app_bar_graph">
 
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="69dp"
+        android:text="~"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textStartDate"
+        app:layout_constraintLeft_toRightOf="@+id/textStartDate" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -38,4 +47,25 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp" />
+
+    <TextView
+        android:id="@+id/textStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작날짜"
+        android:textSize="20dp"
+        android:layout_marginBottom="110dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_test"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="89dp"
+        android:text="끝날짜"
+        android:textSize="20dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView16"
+        app:layout_constraintLeft_toRightOf="@+id/textView16" />
 </android.support.constraint.ConstraintLayout>

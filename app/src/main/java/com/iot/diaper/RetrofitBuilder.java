@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -80,14 +81,12 @@ public class RetrofitBuilder {
         });
     }
 
-    public void getGraphData(String id, String userName, TextView txt_test, BarChart barChart) {
+    // 차트에 넣을 카운트 데이터 daily
+    public void getDailyGraphData(Date startDate, Date endDate, String id, String userName, TextView txt_test, BarChart barChart) {
 
-        ArrayList<Integer> arrayCount = new ArrayList<>();
-        for(int i=0; i<24; i++) {
-            arrayCount.add(0);
-        }
+        ArrayList<EventCount> arrayEventCount = new ArrayList<>();
 
-        Call<ResponseBody> call = _apiService.getcountData(id);
+        Call<ResponseBody> call = _apiService.getDailycountData(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -98,15 +97,18 @@ public class RetrofitBuilder {
                     JSONArray jsonArray = new JSONArray(responseData);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Date date;
                         int time;
                         int count;
+                        date = new Date(jsonObject.getInt("year"), jsonObject.getInt("month"), jsonObject.getInt("day"));
                         time = jsonObject.getInt("time");
                         count = jsonObject.getInt("count");
-                        txt_test.setText(userName+"그래프");
-                        arrayCount.set(time, count);
+                        EventCount eventCount = new EventCount(date, time, count);
+                        arrayEventCount.add(eventCount);
                     }
-
-                    BarGraph graphData = new BarGraph(arrayCount);
+                    txt_test.setText(userName+"그래프");
+                    BarGraph graphData = new BarGraph(arrayEventCount);
+                    graphData.setUpDataBetweenDate(startDate, endDate);
                     graphData.createBarGraph(barChart);
 
                 } catch (Exception e) {
@@ -122,6 +124,51 @@ public class RetrofitBuilder {
         });
     }
 
+
+    // 차트에 넣을 카운트 데이터
+//    public void getGraphData(String id, String userName, TextView txt_test, BarChart barChart) {
+//
+//        ArrayList<Integer> arrayCount = new ArrayList<>();
+//        for(int i=0; i<24; i++) {
+//            arrayCount.add(0);
+//        }
+//
+//        Call<ResponseBody> call = _apiService.getcountData(id);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                String responseData = null;
+//                try {
+//                    responseData = response.body().string();
+//                    JSONArray jsonArray = new JSONArray(responseData);
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                        int time;
+//                        int count;
+//                        time = jsonObject.getInt("time");
+//                        count = jsonObject.getInt("count");
+//                        txt_test.setText(userName+"그래프");
+//                        arrayCount.set(time, count);
+//                    }
+//
+//                    BarGraph graphData = new BarGraph(arrayCount);
+//                    graphData.createBarGraph(barChart);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
+    // 보안 로그인
     public void getAuthLogin(String id, String pw) {
 
         String base = id+":"+pw;
@@ -161,9 +208,10 @@ public class RetrofitBuilder {
         });
     }
 
+    // 날짜별 아두이노에서 값이 추가됬는지 확인하기 위해서 (polling)
     public void getUpdateEvent(String id, Handler handler) {
 
-            Call<ResponseBody> call = _apiService.postDataForEventUpdate(id);
+            Call<ResponseBody> call = _apiService.getDataForEventUpdate(id);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -197,6 +245,7 @@ public class RetrofitBuilder {
             });
     }
 
+    // 가입시 아이디 체크
     public void signupMenuForId(String id, String pw, String name) {
         Call<ResponseBody> call = _apiService.checkforDuplicatedId(id);
         call.enqueue(new Callback<ResponseBody>() {
